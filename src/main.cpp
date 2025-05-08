@@ -8,10 +8,10 @@ HardwareArduino hardware_loc;
 
 void setup()
 {
-  Demo_setup(&hardware_loc);
+  // Demo_setup(&hardware_loc);
 }
 
 void loop()
 {
-  Demo_loop();
+  // Demo_loop();
 }
