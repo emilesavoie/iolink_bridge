@@ -32,6 +32,7 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <stdio.h>
+#include "config.hpp"
 
 //!**** Macros ******************************************************************
 
@@ -72,14 +73,9 @@ void HardwareArduino::begin(){
 
 	Serial.begin(115200);
 
-	Serial.print("\nBeginne mit der Initialisierung\n");
-
-	SPI.begin();
+	SPI.begin(ESP32::IO_LINK_SCLK, ESP32::IO_LINK_SDO, ESP32::IO_LINK_SDI, ESP32::IO_LINK_CS);
+	// SPI.begin();
 	SPI.beginTransaction(SPISettings(20000000, MSBFIRST, SPI_MODE0));
-	delay(1000);
-
-	Serial_Write("Init_SPI finished");
-	wait_for(1*1000);
 }
 
 //!*****************************************************************************

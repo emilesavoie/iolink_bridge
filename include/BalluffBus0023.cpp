@@ -69,23 +69,6 @@ BalluffBus0023::BalluffBus0023(IOLMasterPort * port) : IOLGenericDevice(port){
 //!*****************************************************************************
 void BalluffBus0023::begin() {
 	port->begin();
-
-	/*uint8_t pData[3];
-	uint16_t VendorID;
-	uint32_t DeviceID;
-	port->readDirectParameterPage(0x02, pData);
-
-	// VendorID
-	port->readDirectParameterPage(0x07, pData); //MSB
-	port->readDirectParameterPage(0x08, pData + 1); //LSB
-	VendorID = uint16_t((pData[0] << 8) + (pData[1]));
-	// DeviceID
-	port->readDirectParameterPage(0x09, pData); //MSB
-	port->readDirectParameterPage(0x0A, pData + 1);
-	port->readDirectParameterPage(0x0B, pData + 2); //LSB
-	DeviceID = (pData[0] << 16) + (pData[1] << 8) + pData[2];
-	printf("Vendor ID: %d, Device ID: %d\n", VendorID, DeviceID);*/
-
 }
 
 //!*****************************************************************************
