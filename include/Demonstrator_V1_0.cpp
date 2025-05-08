@@ -80,19 +80,50 @@ void Demo_setup(HardwareBase *hardware_loc)
     BUS0023 = BalluffBus0023(&port0);
 
     // Start IO-Link communication
-    BUS0023.begin();
-    // Picomag.begin();
-    port0.begin();
-    port1.begin();
-    port2.begin();
-    port3.begin();
+    // BUS0023.begin();
+
+    // char buf[16];
+    // uint8_t test = port0.begin();
+    // sprintf(buf, "Port begin result: %d", test);
+    // hardware->Serial_Write(buf);
+
+    // port1.begin();
+    // port2.begin();
+    // port3.begin();
 }
 
 // The loop function is called in an endless loop
 void Demo_loop()
 {
+    BUS0023.begin();
+
+    // char buf[64];
+
+    // uint8_t test = port0.begin();
+    // sprintf(buf, "Port begin result: %d", static_cast<int>(test));
+    // hardware->Serial_Write(buf);
     // Picomag.getTemp();
-    hardware->Serial_Write("LOOP");
+    // hardware->Serial_Write("LOOP");
+
+    // char buf[256];
+
+    // uint8_t pData[3];
+    // uint16_t VendorID;
+    // uint32_t DeviceID;
+    // port0.readDirectParameterPage(0x02, pData);
+
+    // // VendorID
+    // port0.readDirectParameterPage(0x07, pData);     // MSB
+    // port0.readDirectParameterPage(0x08, pData + 1); // LSB
+    // VendorID = uint16_t((pData[0] << 8) + pData[1]);
+    // // DeviceID
+    // port0.readDirectParameterPage(0x09, pData); // MSB
+    // port0.readDirectParameterPage(0x0A, pData + 1);
+    // port0.readDirectParameterPage(0x0B, pData + 2); // LSB
+    // DeviceID = (pData[0] << 16) + (pData[1] << 8) + pData[2];
+    // sprintf(buf, "Vendor ID: %d, Device ID: %d\n", VendorID, DeviceID);
+    // hardware->Serial_Write(buf);
+
     // Variables used for distance and level conversation
     // uint16_t distance = 0;
     // uint16_t testVal = 0;

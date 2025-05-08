@@ -30,7 +30,6 @@
 //!**** Header-Files ************************************************************
 #include "IOLMasterPort.h"
 
-
 #include "Max14819.h"
 
 #ifdef ARDUINO
@@ -150,20 +149,18 @@ uint8_t Max14819::begin(PortSelect port)
         if ((isInitPortA_ == 0) && (isInitPortB_ == 0))
         {
             // Initialize IOs
-            Hardware->IO_PinMode(Hardware->port01CS, Hardware->out);
-            Hardware->IO_PinMode(Hardware->port01IRQ, Hardware->in_pullup);
-            Hardware->IO_PinMode(Hardware->port0DI, Hardware->in_pullup);
-            Hardware->IO_PinMode(Hardware->port1DI, Hardware->in_pullup);
-            Hardware->IO_PinMode(Hardware->port0LedGreen, Hardware->out);
-            Hardware->IO_PinMode(Hardware->port0LedRed, Hardware->out);
-            Hardware->IO_PinMode(Hardware->port0LedRxErr, Hardware->in_pullup);
-            Hardware->IO_PinMode(Hardware->port0LedRxRdy, Hardware->in_pullup);
-            Hardware->IO_PinMode(Hardware->port1LedGreen, Hardware->out);
-            Hardware->IO_PinMode(Hardware->port1LedRed, Hardware->out);
-            Hardware->IO_PinMode(Hardware->port1LedRxErr, Hardware->in_pullup);
-            Hardware->IO_PinMode(Hardware->port1LedRxRdy, Hardware->in_pullup);
-
-
+            // Hardware->IO_PinMode(Hardware->port01CS, Hardware->out);
+            // Hardware->IO_PinMode(Hardware->port01IRQ, Hardware->in_pullup);
+            // Hardware->IO_PinMode(Hardware->port0DI, Hardware->in_pullup);
+            // Hardware->IO_PinMode(Hardware->port1DI, Hardware->in_pullup);
+            // Hardware->IO_PinMode(Hardware->port0LedGreen, Hardware->out);
+            // Hardware->IO_PinMode(Hardware->port0LedRed, Hardware->out);
+            // Hardware->IO_PinMode(Hardware->port0LedRxErr, Hardware->in_pullup);
+            // Hardware->IO_PinMode(Hardware->port0LedRxRdy, Hardware->in_pullup);
+            // Hardware->IO_PinMode(Hardware->port1LedGreen, Hardware->out);
+            // Hardware->IO_PinMode(Hardware->port1LedRed, Hardware->out);
+            // Hardware->IO_PinMode(Hardware->port1LedRxErr, Hardware->in_pullup);
+            // Hardware->IO_PinMode(Hardware->port1LedRxRdy, Hardware->in_pullup);
 
             // Define all SPI signals for the Geckoboard as inputs. if not, MOSI cant be thrown to 0V
             /*Hardware->IO_PinMode(50, Hardware->in);
@@ -478,6 +475,12 @@ uint8_t Max14819::wakeUpRequest(PortSelect port, uint32_t *comSpeed_ret)
     uint8_t timeOutCounter = 0;
     uint16_t length = 0;
 
+    uint8_t testVal = 0x55;
+    writeRegister(0x00, testVal);          // Write test value
+    uint8_t readBack = readRegister(0x00); // Read back
+    Hardware->Serial_Write("SPI Test: Wrote 0x55, Read 0x");
+    Hardware->Serial_Write(readBack);
+
     // wake up and communication establishing for selected port
     switch (port)
     {
@@ -488,14 +491,24 @@ uint8_t Max14819::wakeUpRequest(PortSelect port, uint32_t *comSpeed_ret)
         retValue = uint8_t(retValue | writeRegister(MsgCtrlA, 0));         // Dont use InsChks when transmit OD Data, max14819 doesnt calculate it right
         retValue = uint8_t(retValue | writeRegister(CQCtrlA, EstCom));     // Start communication
 
-        // Wait till establish communication sequence is over or timeout is reached
         do
         {
-            comReqRunning = readRegister(CQCtrlA);
-            comReqRunning &= EstCom;
+            comReqRunning = readRegister(CQCtrlA) & EstCom;
             timeOutCounter++;
             Hardware->wait_for(1);
-        } while (comReqRunning || (timeOutCounter < INIT_WURQ_TIMEOUT));
+
+            // Debug: Print polling status
+            Hardware->Serial_Write("Polling... EstCom: ");
+            Hardware->Serial_Write(comReqRunning ? "SET" : "CLEAR");
+
+            if (timeOutCounter >= INIT_WURQ_TIMEOUT)
+            {
+                Hardware->Serial_Write("Timeout! CQCtrlA: 0x");
+                return ERROR;
+            }
+        } while (comReqRunning);
+
+        Hardware->Serial_Write(99);
 
         Hardware->wait_for(10);
         // Clear buffer
@@ -512,7 +525,7 @@ uint8_t Max14819::wakeUpRequest(PortSelect port, uint32_t *comSpeed_ret)
         {
             return ERROR;
         }
-        break;
+
     case PORTB:
         // Start wakeup and communcation
         retValue = uint8_t(retValue | writeRegister(IOStCfgB, 0));         // Disable tx needed for wake up

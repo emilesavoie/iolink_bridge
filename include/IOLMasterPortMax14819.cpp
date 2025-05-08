@@ -136,7 +136,7 @@ uint8_t IOLMasterPortMax14819::begin()
         pDriver_->Serial_Write(buf);
     }
     pDriver_->Serial_Write("WakeUp");
-    
+
     // Generate wakeup
     retValue = uint8_t(retValue | pDriver_->wakeUpRequest(port_, &comSpeed_));
     if (retValue == ERROR)
@@ -148,9 +148,9 @@ uint8_t IOLMasterPortMax14819::begin()
     {
         sprintf(buf, "Communication established with %d bauds\n", comSpeed_);
         pDriver_->Serial_Write(buf);
-
     }
     pDriver_->Serial_Write("Device");
+    
     uint8_t pData[3];
     uint16_t VendorID;
     uint32_t DeviceID;

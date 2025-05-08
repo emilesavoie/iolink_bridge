@@ -1,6 +1,8 @@
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
+#include "driver/gpio.h"
+
 namespace ESP32
 {
     constexpr gpio_num_t IO_LINK_CS   = GPIO_NUM_40;
