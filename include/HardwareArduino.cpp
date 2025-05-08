@@ -88,8 +88,8 @@ void HardwareArduino::begin()
 
 	digitalWrite(ESP32::IO_LINK_CS, LOW);
 	
-
 	SPI.begin(ESP32::IO_LINK_SCLK, ESP32::IO_LINK_SDO, ESP32::IO_LINK_SDI, ESP32::IO_LINK_CS);
+	// SPI.begin();
 	SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
 }
 

@@ -86,10 +86,6 @@ void Demo_setup(HardwareBase *hardware_loc)
     // uint8_t test = port0.begin();
     // sprintf(buf, "Port begin result: %d", test);
     // hardware->Serial_Write(buf);
-
-    // port1.begin();
-    // port2.begin();
-    // port3.begin();
 }
 
 // The loop function is called in an endless loop

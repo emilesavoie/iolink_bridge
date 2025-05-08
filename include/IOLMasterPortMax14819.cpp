@@ -32,6 +32,7 @@
 #include "IOLMasterPortMax14819.h"
 #include "Max14819.h"
 #include "IOLink.h"
+#include "string.h"
 
 #ifdef ARDUINO
 #include <stdio.h>
@@ -150,7 +151,7 @@ uint8_t IOLMasterPortMax14819::begin()
         pDriver_->Serial_Write(buf);
     }
     pDriver_->Serial_Write("Device");
-    
+
     uint8_t pData[3];
     uint16_t VendorID;
     uint32_t DeviceID;
@@ -166,6 +167,20 @@ uint8_t IOLMasterPortMax14819::begin()
     readDirectParameterPage(0x0B, pData + 2); // LSB
     DeviceID = (pData[0] << 16) + (pData[1] << 8) + pData[2];
     sprintf(buf, "Vendor ID: %d, Device ID: %d\n", VendorID, DeviceID);
+    pDriver_->Serial_Write(buf);
+
+    uint8_t tempData[4];
+    uint32_t rawTemp;
+    int temperature;
+
+    readDirectParameterPage(0x0163, tempData); 
+    readDirectParameterPage(0x0164, tempData + 1); 
+    readDirectParameterPage(0x0165, tempData + 2); 
+    readDirectParameterPage(0x0166, tempData + 3); 
+
+    rawTemp = (tempData[3] << 24) | (tempData[2] << 16) | (tempData[1] << 8) | tempData[0];
+
+    sprintf(buf, "Temperature : %d\n", rawTemp);
     pDriver_->Serial_Write(buf);
 
     // Switch to operational
@@ -333,15 +348,15 @@ void IOLMasterPortMax14819::writeISDU()
 {
 }
 
-uint8_t IOLMasterPortMax14819::readDirectParameterPage(uint8_t address, uint8_t *pData)
+uint8_t IOLMasterPortMax14819::readDirectParameterPage(uint16_t address, uint8_t *pData)
 {
     uint8_t MC;
 
-    if (address > 31)
-    {
-        pDriver_->Serial_Write("readDirectParameterPage: address to big\n");
-        return 0;
-    }
+    // if (address > 31)
+    // {
+    //     pDriver_->Serial_Write("readDirectParameterPage: address to big\n");
+    //     return 0;
+    // }
 
     MC = uint8_t((1 << 7) + (0b01 << 5) + address);
 

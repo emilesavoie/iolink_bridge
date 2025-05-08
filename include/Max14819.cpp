@@ -174,14 +174,14 @@ uint8_t Max14819::begin(PortSelect port)
             {
             case PORTA:
                 // Set outputs high for Port A (low-active)
-                Hardware->IO_Write(Hardware->port0LedGreen, HIGH);
-                Hardware->IO_Write(Hardware->port0LedRed, HIGH);
+                // Hardware->IO_Write(Hardware->port0LedGreen, HIGH);
+                // Hardware->IO_Write(Hardware->port0LedRed, HIGH);
 
                 // Initialize LEDs for other port if not allready initialized
                 if (isInitPortB_ == 0)
                 {
-                    Hardware->IO_Write(Hardware->port1LedGreen, HIGH);
-                    Hardware->IO_Write(Hardware->port1LedRed, HIGH);
+                    // Hardware->IO_Write(Hardware->port1LedGreen, HIGH);
+                    // Hardware->IO_Write(Hardware->port1LedRed, HIGH);
                 }
 
                 // Port A successfully initialized
@@ -475,12 +475,6 @@ uint8_t Max14819::wakeUpRequest(PortSelect port, uint32_t *comSpeed_ret)
     uint8_t timeOutCounter = 0;
     uint16_t length = 0;
 
-    uint8_t testVal = 0x55;
-    writeRegister(0x00, testVal);          // Write test value
-    uint8_t readBack = readRegister(0x00); // Read back
-    Hardware->Serial_Write("SPI Test: Wrote 0x55, Read 0x");
-    Hardware->Serial_Write(readBack);
-
     // wake up and communication establishing for selected port
     switch (port)
     {
@@ -498,12 +492,12 @@ uint8_t Max14819::wakeUpRequest(PortSelect port, uint32_t *comSpeed_ret)
             Hardware->wait_for(1);
 
             // Debug: Print polling status
-            Hardware->Serial_Write("Polling... EstCom: ");
-            Hardware->Serial_Write(comReqRunning ? "SET" : "CLEAR");
+            // Hardware->Serial_Write("Polling... EstCom: ");
+            // Hardware->Serial_Write(comReqRunning ? "SET" : "CLEAR");
 
             if (timeOutCounter >= INIT_WURQ_TIMEOUT)
             {
-                Hardware->Serial_Write("Timeout! CQCtrlA: 0x");
+                Hardware->Serial_Write("Timeout!");
                 return ERROR;
             }
         } while (comReqRunning);
