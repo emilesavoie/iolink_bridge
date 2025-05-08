@@ -3,8 +3,9 @@
 
 #include "HardwareArduino.h"
 #include "Demonstrator_V1_0.h"
+#include "config.hpp"
 
-HardwareArduino hardware_loc;
+// HardwareArduino hardware_loc;
 
 void setup()
 {
