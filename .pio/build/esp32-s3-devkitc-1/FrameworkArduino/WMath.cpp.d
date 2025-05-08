@@ -1,0 +1,20 @@
+.pio/build/esp32-s3-devkitc-1/FrameworkArduino/WMath.cpp.o: \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/cores/esp32/WMath.cpp \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_system/include/esp_system.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_common/include/esp_err.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_common/include/esp_compiler.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_common/include/esp_attr.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_common/include/esp_bit_defs.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_common/include/esp_idf_version.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-log.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_timer/include/esp_timer.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_hw_support/include/esp_etm.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_rom/include/esp32s3/rom/ets_sys.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/soc/esp32s3/include/soc/soc.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_common/include/esp_assert.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/soc/esp32s3/include/soc/reg_base.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/log/include/esp_log.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_rom/include/esp_rom_sys.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/soc/esp32s3/include/soc/reset_reasons.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/log/include/esp_log_internal.h \
+ /home/emiles/.platformio/packages/framework-arduinoespressif32/tools/esp32-arduino-libs/esp32s3/include/esp_hw_support/include/esp_random.h

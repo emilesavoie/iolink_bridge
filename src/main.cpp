@@ -1,18 +1,17 @@
+#include <SPI.h>
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include "HardwareArduino.h"
+#include "Demonstrator_V1_0.h"
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+HardwareArduino hardware_loc;
+
+void setup()
+{
+  Demo_setup(&hardware_loc);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+  Demo_loop();
 }
