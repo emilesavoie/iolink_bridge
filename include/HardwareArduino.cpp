@@ -84,10 +84,10 @@ void HardwareArduino::begin()
 	pinMode(ESP32::IO_LINK_SCLK, OUTPUT);
 	pinMode(ESP32::IO_LINK_SDI, OUTPUT);
 	pinMode(ESP32::IO_LINK_SDO, INPUT);
-	pinMode(ESP32::IO_LINK_IRQ, INPUT_PULLUP);
+	// pinMode(ESP32::IO_LINK_IRQ, INPUT_PULLUP);
 
 	digitalWrite(ESP32::IO_LINK_CS, LOW);
-	
+
 	SPI.begin(ESP32::IO_LINK_SCLK, ESP32::IO_LINK_SDO, ESP32::IO_LINK_SDI, ESP32::IO_LINK_CS);
 	// SPI.begin();
 	SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
@@ -198,12 +198,12 @@ void HardwareArduino::SPI_Write(uint8_t channel, uint8_t *data, uint8_t length)
 	// case 0:
 	// 	// Enable chipselect -> output high (low-active)
 	// 	// IO_Write(port01CS, LOW);
-	// 	pinMode(ESP32::IO_LINK_CS, LOW);
+	pinMode(ESP32::IO_LINK_CS, LOW);
 
 	// 	break;
 	// case 1:
 	// 	// Enable chipselect -> output high (low-active)
-	// 	IO_Write(port23CS, LOW);
+	// IO_Write(port23CS, LOW);
 	// 	break;
 	// }
 
@@ -217,11 +217,11 @@ void HardwareArduino::SPI_Write(uint8_t channel, uint8_t *data, uint8_t length)
 		{
 			data[i] = received;
 		}
-
 	}
 
 	delayMicroseconds(10);
 
+	pinMode(ESP32::IO_LINK_CS, HIGH);
 	// IO_Write(port01CS, HIGH);
 	// IO_Write(port23CS, HIGH);
 }

@@ -502,8 +502,6 @@ uint8_t Max14819::wakeUpRequest(PortSelect port, uint32_t *comSpeed_ret)
             }
         } while (comReqRunning);
 
-        Hardware->Serial_Write(99);
-
         Hardware->wait_for(10);
         // Clear buffer
         length = readRegister(RxFIFOLvlA);
@@ -603,7 +601,7 @@ uint8_t Max14819::readRegister(uint8_t reg)
     // Check if register address is in the correct range
     if (reg > MAX_REG)
     {
-        Hardware->Serial_Write("Registeraddress out of range");
+        Hardware->Serial_Write("Register address out of range");
         return ERROR;
     }
 
@@ -855,10 +853,10 @@ uint8_t Max14819::readData(uint8_t *pData, uint8_t sizeData, PortSelect port)
         break;
     } // switch(port)
 
-    // Controll if the aswer has the expected length (first byte in the FIFO is the messagelength)
     if (sizeData != readRegister(bufferRegister))
     {
         // TODO Error Handling if Buffer is corrupted
+        // Serial_Write("ERROR IN BUFFER LENGTH");
         retValue = ERROR;
     }
 

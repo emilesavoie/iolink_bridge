@@ -169,19 +169,19 @@ uint8_t IOLMasterPortMax14819::begin()
     sprintf(buf, "Vendor ID: %d, Device ID: %d\n", VendorID, DeviceID);
     pDriver_->Serial_Write(buf);
 
-    uint8_t tempData[4];
-    uint32_t rawTemp;
-    int temperature;
+    // uint8_t tempData[4];
+    // uint32_t rawTemp;
+    // int temperature;
 
-    readDirectParameterPage(0x0163, tempData); 
-    readDirectParameterPage(0x0164, tempData + 1); 
-    readDirectParameterPage(0x0165, tempData + 2); 
-    readDirectParameterPage(0x0166, tempData + 3); 
+    // readDirectParameterPage(0x0163, tempData);
+    // readDirectParameterPage(0x0164, tempData + 1);
+    // readDirectParameterPage(0x0165, tempData + 2);
+    // readDirectParameterPage(0x0166, tempData + 3);
 
-    rawTemp = (tempData[3] << 24) | (tempData[2] << 16) | (tempData[1] << 8) | tempData[0];
+    // rawTemp = (tempData[3] << 24) | (tempData[2] << 16) | (tempData[1] << 8) | tempData[0];
 
-    sprintf(buf, "Temperature : %d\n", rawTemp);
-    pDriver_->Serial_Write(buf);
+    // sprintf(buf, "Temperature : %d\n", rawTemp);
+    // pDriver_->Serial_Write(buf);
 
     // Switch to operational
 
@@ -393,11 +393,24 @@ uint8_t IOLMasterPortMax14819::readPD(uint8_t *pData, uint8_t sizeData)
 
     // Send processdata request to device
     retValue = uint8_t(retValue | pDriver_->writeData(IOL::MC::PD_READ, 0, nullptr, sizeData, IOL::M_TYPE_2_X, port_));
+    // if (retValue == ERROR)
+    // {
+
+    //     char buf[50];
+    //     sprintf(buf, "Error Writting Data");
+    //     pDriver_->Serial_Write(buf);
+    // }
 
     pDriver_->wait_for(10);
 
     // Receive answer
     retValue = uint8_t(retValue | pDriver_->readData(pData, 4, port_));
+    // if (retValue == ERROR)
+    // {
+        // char buf[50];
+        // sprintf(buf, "ERROR READING");
+        // pDriver_->Serial_Write(buf);
+    // }
     if ((pData[3] & IOL::PD_VALID_BIT) != 0)
     {
         retValue = ERROR;

@@ -69,13 +69,13 @@ void Demo_setup(HardwareBase *hardware_loc)
 
     // Create drivers
     max14819::Max14819 *pDriver01 = new max14819::Max14819(max14819::DRIVER01, hardware);
-    max14819::Max14819 *pDriver23 = new max14819::Max14819(max14819::DRIVER23, hardware);
+    // max14819::Max14819 *pDriver23 = new max14819::Max14819(max14819::DRIVER23, hardware);
 
     // Create ports
     port0 = IOLMasterPortMax14819(pDriver01, max14819::PORTA);
-    port1 = IOLMasterPortMax14819(pDriver01, max14819::PORTB);
-    port2 = IOLMasterPortMax14819(pDriver23, max14819::PORTA);
-    port3 = IOLMasterPortMax14819(pDriver23, max14819::PORTB);
+    // port1 = IOLMasterPortMax14819(pDriver01, max14819::PORTB);
+    // port2 = IOLMasterPortMax14819(pDriver23, max14819::PORTA);
+    // port3 = IOLMasterPortMax14819(pDriver23, max14819::PORTB);
 
     BUS0023 = BalluffBus0023(&port0);
 
@@ -91,9 +91,25 @@ void Demo_setup(HardwareBase *hardware_loc)
 // The loop function is called in an endless loop
 void Demo_loop()
 {
-    BUS0023.begin();
 
+    BUS0023.begin();
     // char buf[64];
+    uint8_t data[4] = {0};
+    uint8_t result = port0.readPD(data, 4);
+
+    if (result == SUCCESS)
+    {
+        int16_t rawTemperature = static_cast<int16_t>(data[1]);
+
+        float temperature = rawTemperature / 10.0f;
+
+        // Now you can use the temperature value
+        printf("Temperature: %.1f °C\n", temperature);
+    }
+    else
+    {
+        printf("Error reading process data\n");
+    }
 
     // uint8_t test = port0.begin();
     // sprintf(buf, "Port begin result: %d", static_cast<int>(test));
@@ -127,18 +143,18 @@ void Demo_loop()
     // uint8_t data[4];
     // char buf[64];
 
-    // // Level mode for smartlight
-    // uint8_t dataLED[10];
-    // dataLED[0] = 0;
-    // dataLED[1] = 0;
-    // dataLED[2] = 0;
-    // dataLED[3] = 0b00000010;
-    // dataLED[4] = 1;
-    // dataLED[5] = 0;
-    // dataLED[6] = 0;
-    // dataLED[7] = 0;
-    // dataLED[8] = IOL::MC::PDOUT_VALID;
-    // dataLED[9] = 0;
+    // Level mode for smartlight
+    uint8_t dataLED[10];
+    dataLED[0] = 0;
+    dataLED[1] = 0;
+    dataLED[2] = 0;
+    dataLED[3] = 0b00000010;
+    dataLED[4] = 1;
+    dataLED[5] = 0;
+    dataLED[6] = 0;
+    dataLED[7] = 0;
+    dataLED[8] = IOL::MC::PDOUT_VALID;
+    dataLED[9] = 0;
 
     // // Default levels for demonstrator
     // uint16_t TANK_MAX_LVL = 210;

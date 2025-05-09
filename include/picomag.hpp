@@ -18,20 +18,20 @@ public:
         port->begin();
     }
 
-    // float getTemp(void)
-    // {
-        // uint8_t data[PICOMAG_CONGIF::TEMP::DATA_SIZE];
-        // float temp = 0.0F;
+    float getTemp(void)
+    {
+        uint8_t data[PICOMAG_CONGIF::TEMP::DATA_SIZE];
+        float temp = 0.0F;
 
-        // port->readDirectParameterPage(PICOMAG_CONGIF::TEMP::ADRESS, nullptr);
+        port->readDirectParameterPage(PICOMAG_CONGIF::TEMP::ADRESS, nullptr);
 
-        // if (port->readPD(data, 4) != ERROR)
-        // {
-        //     memcpy(&temp, data, sizeof(float));
-        // }
+        if (port->readPD(data, 4) != ERROR)
+        {
+            memcpy(&temp, data, sizeof(float));
+        }
 
-        // return temp;
-    // }
+        return temp;
+    }
 };
 
 #endif
